@@ -7,7 +7,7 @@ const deps = require("./package.json").dependencies;
 const path = require("path");
 
 module.exports = async (env, argv) => {
-  const isEnvProduction = env.mode === "production";
+  const isProduction = env.mode === "production";
   // :: safe
   // const config = await createExpoWebpackConfig({
   //   ...env,
@@ -25,8 +25,9 @@ module.exports = async (env, argv) => {
     argv
   );
 
-  config.optimization.minimize = true;
-  config.devtool = false;
+  config.optimization.minimize = isProduction;
+  config.devtool = !isProduction;
+  // :: bootstrap for share or expose mfe
   config.entry = path.resolve(__dirname, "./index.js");
   config.output = {
     ...config.output,
@@ -77,7 +78,7 @@ module.exports = async (env, argv) => {
     })
   );
 
-  if (isEnvProduction) {
+  if (isProduction) {
     config.plugins.push(
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the webpack build.
