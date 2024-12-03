@@ -1,0 +1,94 @@
+<ion-app>
+  <ion-loading [isOpen]="!getAppIsReady()" message="Loading ..."></ion-loading>
+  <ion-header class="mobile-header">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon slot="icon-only" size="medium" name="notifications-outline">
+          </ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-split-pane *ngIf="getAppIsReady()" contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" class="mobile-menu">
+      <ion-content>
+        <ion-list
+          class="list-sidebar"
+          [ngStyle]="{
+            paddingTop: '0px',
+
+            paddingBottom: '0px'
+          }"
+        >
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let menu of sidebarMenu; let i = index"
+          >
+            <ion-item
+              *ngIf="menu.child.length === 0"
+              routerDirection="root"
+              [routerLink]="[menu.url]"
+              lines="full"
+              detail="false"
+              routerLinkActive="selected"
+              button="true"
+              class="no-hover"
+            >
+              <ion-label [ngStyle]="{ marginLeft: '10px' }">
+                {{ menu.title }}
+              </ion-label>
+            </ion-item>
+
+            <ion-item-group *ngIf="menu.child.length > 0">
+              <ion-item
+                lines="full"
+                detail="false"
+                routerLinkActive="selected"
+                button="true"
+                (click)="collapseSidebarMenuHandler(menu.title)"
+              >
+                <ion-label [ngStyle]="{ marginLeft: '10px' }">
+                  {{ menu.title }}
+                </ion-label>
+                <ion-icon
+                  *ngIf="isOpenSidebarMenu(menu.title)"
+                  name="chevron-down-outline"
+                  size="small"
+                ></ion-icon>
+                <ion-icon
+                  *ngIf="!isOpenSidebarMenu(menu.title)"
+                  name="chevron-forward-outline"
+                  size="small"
+                ></ion-icon>
+              </ion-item>
+              @if(isOpenSidebarMenu(menu.title)){
+              <ion-item
+                *ngFor="let child of menu.child; let i = index"
+                routerDirection="root"
+                [routerLink]="[child.url]"
+                lines="full"
+                detail="false"
+                routerLinkActive="selected"
+                button="true"
+              >
+                <ion-label [ngStyle]="{ marginLeft: '30px' }">
+                  {{ child.title }}
+                </ion-label>
+              </ion-item>
+              }
+            </ion-item-group>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet
+      id="main-content"
+      class="content-base"
+    ></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

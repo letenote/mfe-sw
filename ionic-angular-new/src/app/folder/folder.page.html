@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ folder }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <strong class="capitalize">{{ folder }}</strong>
+    <p>
+      Explore
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://ionicframework.com/docs/components"
+        >UI Components</a
+      >
+    </p>
+    <button-ng></button-ng>
+    <app-button-wrapper></app-button-wrapper>
+  </div>
+
+  <div class="app">
+    <a
+      [ngStyle]="{'margin-right': '20px'}"
+      routerDirection="root"
+      [routerLink]="['/notes']"
+      >Notes</a
+    >
+    <a routerDirection="root" [routerLink]="['/customer']">Customer</a>
+    <hr />
+    <router-outlet></router-outlet>
+  </div>
+</ion-content>

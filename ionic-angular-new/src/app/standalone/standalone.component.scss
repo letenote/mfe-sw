@@ -1,0 +1,43 @@
+.slides-card {
+  ion-slides.rigid-slides .swiper-slide.swiper-slide-active {
+    width: 100% !important;
+    height: initial !important;
+  }
+}
+
+.head-news-container {
+  // background: map-get($colors, primary);
+  padding: 5px 20px;
+  // @include minTablet {
+  //   display: none;
+  // }
+}
+
+.head-news {
+  display: block;
+  color: #fff;
+  font-size: 10px;
+  padding: 0px 0;
+  /* overflow: hidden; */
+  height: 35px;
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  text-align: justify;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+
+  label {
+    color: #eabd5f;
+  }
+
+  // @include minTablet {
+  //   display: none;
+  // }
+}
+
+.button-transparent {
+  border-color: transparent;
+}

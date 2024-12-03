@@ -1,0 +1,42 @@
+{
+  "name": "expo_app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "deploy:local": "rm -rf web-build && npx expo export:web && http-server web-build -p 9999"
+  },
+  "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "expo": "~49.0.23",
+    "expo-status-bar": "~1.6.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.72.10",
+    "react-native-web": "~0.19.6",
+    "webpack": "^5.67.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "workbox-background-sync": "^7.3.0",
+    "workbox-broadcast-update": "^7.3.0",
+    "workbox-cacheable-response": "^7.3.0",
+    "workbox-core": "^7.3.0",
+    "workbox-expiration": "^7.3.0",
+    "workbox-google-analytics": "^7.3.0",
+    "workbox-navigation-preload": "^7.3.0",
+    "workbox-precaching": "^7.3.0",
+    "workbox-range-requests": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0",
+    "workbox-streams": "^7.3.0",
+    "workbox-webpack-plugin": "^7.3.0",
+    "workbox-window": "^7.3.0"
+  },
+  "private": true
+}

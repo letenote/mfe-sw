@@ -1,0 +1,15 @@
+{
+  "short_name": "Expo App v2",
+  "name": "Expo Router Sample",
+  "icons": [
+    {
+      "src": "../assets/football-logo.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

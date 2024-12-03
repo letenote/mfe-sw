@@ -1,0 +1,7 @@
+{
+  "name": "ion-ang-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

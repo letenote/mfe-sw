@@ -1,0 +1,412 @@
+<ion-content>
+  <div
+    class="test-style"
+    [ngStyle]="{'background': '#ed1b2e', 'color': 'white', 'padding': '10px 30px'}"
+  >
+    Hello, {{username}}
+    <ion-icon name="accessibility-outline"></ion-icon>
+  </div>
+  <div class="head-news-container" hidden="true">
+    <div class="head-news">
+      <label>IMPORTANT:</label>Lorem ipsum dolor sit amet, consectetur
+      adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi.
+    </div>
+  </div>
+  <div class="slider-content margin-bottom-20">
+    <!-- <img
+      src="{{env.host}}/assets/img/landing-slide.png"
+      alt="thumb-slider"
+      loading="lazy"
+    /> -->
+    <swiper-container
+      [modules]="swiperModules"
+      [pagination]="true"
+      [autoplay]="4000"
+      [speed]="700"
+    >
+      <swiper-slide>
+        <img
+          src="{{env.host}}/assets/img/landing-slide.png"
+          alt="thumb-slider"
+          loading="lazy"
+        />
+        <div class="swiper-lazy-preloader"></div>
+      </swiper-slide>
+      <swiper-slide>
+        <img
+          src="{{env.host}}/assets/img/landing-slide.png"
+          alt="thumb-slider"
+          loading="lazy"
+        />
+        <div class="swiper-lazy-preloader"></div>
+      </swiper-slide>
+      <swiper-slide>
+        <img
+          src="{{env.host}}/assets/img/landing-slide.png"
+          alt="thumb-slider"
+          loading="lazy"
+        />
+        <div class="swiper-lazy-preloader"></div>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <ion-grid [ngStyle]="{'padding': '25px'}">
+    <ion-row class="home-wrap-content">
+      <ion-col size="8" col-lg-8 col-md-12 class="home-wrap-item">
+        <div class="card-content margin-bottom-20" box-shadow>
+          <h3 class="title">360774</h3>
+          <h3
+            class="sub-title"
+            [ngStyle]="{'color': 'grey', 'margin-top': '-10px', 'margin-bottom': '50px'}"
+          >
+            Assigned Role:
+          </h3>
+          <div class="tabs-child-conten no-border">
+            <div>
+              <div class="wf-content card-table-mobile">
+                <ion-grid [ngStyle]="{'padding': '0px 25px'}">
+                  <ion-row class="wf-head">
+                    <ion-col
+                      col-6
+                      class="wf-grid"
+                      [ngStyle]="{'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between', 'padding': '10px 15px'}"
+                    >
+                      <div class="wf-col wf-50">
+                        Remaining Target <br />
+                        as per Today
+                      </div>
+                      <div
+                        class="wf-col wf-50"
+                        text-right
+                        [ngStyle]="{'font-size': '26px', 'color': '#49752a'}"
+                      >
+                        <span class="green">10</span>
+                      </div>
+                    </ion-col>
+                    <ion-col
+                      col-6
+                      class="wf-grid"
+                      [ngStyle]="{'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between', 'padding': '10px 15px', 'border-left': 'solid 3px grey'}"
+                    >
+                      <div class="wf-col wf-50">
+                        Total Target <br />
+                        per month
+                      </div>
+                      <div
+                        class="wf-col wf-50"
+                        text-right
+                        [ngStyle]="{'font-size': '26px', 'color': '#49752a'}"
+                      >
+                        <span class="green">1408</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row
+                    cursor-pointer
+                    class="wf-body-list sub-header line-black"
+                    [ngStyle]="{'background': '#80808063'}"
+                  >
+                    <ion-col
+                      col-6
+                      class="wf-grid"
+                      [ngStyle]="{'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between', 'padding': '10px 15px'}"
+                    >
+                      <div class="wf-col wf-50">
+                        Weekly Target <br />
+                        on Average
+                      </div>
+                      <div
+                        class="wf-col wf-50"
+                        text-right
+                        [ngStyle]="{'font-size': '26px', 'color': '#49752a'}"
+                      >
+                        <span class="green">22</span>
+                      </div>
+                    </ion-col>
+                    <ion-col
+                      col-6
+                      class="wf-grid"
+                      [ngStyle]="{'display': 'flex', 'align-items': 'center', 'justify-content': 'space-between', 'padding': '10px 15px', 'border-left': '3px solid rgb(24 24 24)'}"
+                    >
+                      <div class="wf-col wf-50">
+                        Completed This Week <br />(Cycle by Friday)
+                      </div>
+                      <div
+                        class="wf-col wf-50"
+                        text-right
+                        [ngStyle]="{'font-size': '26px', 'color': '#ffd444'}"
+                      >
+                        <span class="yellow">352</span>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-content margin-bottom-20 padding-bottom-0"
+          box-shadow
+          [ngStyle]="{'border-top': 'solid 1px grey', 'margin-top': '35px', 'padding': '20px 0px' }"
+        >
+          <h3 class="title">LEARNING PROGRAM</h3>
+          <div
+            class="news-img"
+            [ngStyle]="{'margin-top': '30px', 'padding': '0px 25px'}"
+          >
+            <img
+              src="{{env.host}}/assets/img/landing-slide.png"
+              alt="thumb-img"
+              loading="lazy"
+              width="100%"
+            />
+          </div>
+          <div class="card-news-tabs" [ngStyle]="{'padding': '0px 25px'}">
+            <div class="tabs-child-list advanced tf-tabs">
+              <ul
+                [ngStyle]="{'list-style-type': 'none', 'display': 'flex', 'justify-content': 'center', 'border-bottom': 'solid 1px red', 'padding': '20px 0px'}"
+              >
+                <li [ngStyle]="{'padding': '0px 20px'}">
+                  <a
+                    [ngStyle]="{'color': 'red', 'font-weight': 'bold', 'text-transform': 'uppercase'}"
+                    >bookmark</a
+                  >
+                </li>
+                <li [ngStyle]="{'padding': '0px 20px'}">
+                  <a
+                    [ngStyle]="{'color': 'grey', 'text-transform': 'uppercase'}"
+                    >schedule</a
+                  >
+                </li>
+                <li [ngStyle]="{'padding': '0px 20px'}">
+                  <a
+                    [ngStyle]="{'color': 'grey', 'text-transform': 'uppercase'}"
+                    >sign up</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div
+              class="tabs-child-conten no-border"
+              [ngStyle]="{'padding': '10px 20px' }"
+            >
+              <div [hidden]="false" class="margin-top-15">
+                <h4 class="" font-bold>
+                  Prudential Employee Milestones Program
+                </h4>
+                <p class="margin-bottom-5" [ngStyle]="{'color': 'grey' }">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                  cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="wrap-button-submit margin-bottom-0 no-border"
+              no-padding
+            >
+              <ion-grid
+                [ngStyle]="{'display': 'flex', 'justify-content': 'center' }"
+              >
+                <ion-row>
+                  <ion-col col-12>
+                    <button
+                      ion-button
+                      text-uppercase
+                      color="red"
+                      clear
+                      no-margin
+                      [ngStyle]="{'color': 'red', 'background': 'transparent' }"
+                      class="button-transparent"
+                    >
+                      See All LEARNING SESSIONS
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-content margin-bottom-20"
+          box-shadow
+          [ngStyle]="{'border-top': 'solid 1px grey', 'border-bottom': 'solid 1px grey', 'margin-top': '35px', 'padding': '60px 0px' }"
+        >
+          <ion-grid
+            text-center
+            [ngStyle]="{'display': 'flex', 'justify-content': 'center' }"
+          >
+            <ion-row>
+              <ion-col col-12>
+                <button
+                  ion-button
+                  text-uppercase
+                  color="red"
+                  clear
+                  class="button-transparent"
+                  [ngStyle]="{'color': 'red', 'background': 'transparent' }"
+                >
+                  + ADD New Shortcut
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-col>
+
+      <ion-col
+        size="4"
+        col-lg-4
+        col-md-12
+        class="home-wrap-item"
+        [ngStyle]="{'border-left': 'solid 1px grey'}"
+      >
+        <div
+          class="widget-content"
+          [hidden]="false"
+          [ngStyle]="{'padding': '0px 25px 30px 25px', 'border-bottom': 'solid 1px grey'}"
+        >
+          <h4
+            class="widget-title"
+            text-uppercase
+            [ngStyle]="{'margin-bottom': '25px'}"
+          >
+            CORPORATE CALENDAR
+          </h4>
+          <div
+            class="widget-item"
+            [ngStyle]="{'display': 'flex', 'border-radius': '16px', 'background': '#ebebeb'}"
+          >
+            <div
+              class="head-widget"
+              [ngStyle]="{'display': 'flex', 'flex-direction': 'column', 'justify-content': 'center', 'background': '#ed1c2f', 'padding': '20px', 'align-items': 'center', 'border-radius': '16px'}"
+            >
+              <label [ngStyle]="{'font-size': '30px', 'color': 'white'}"
+                >05</label
+              >
+              <span [ngStyle]="{'font-size': '15px', 'color': 'white'}"
+                >OKT</span
+              >
+              <span [ngStyle]="{'font-size': '15px', 'color': 'white'}"
+                >2018</span
+              >
+            </div>
+            <div class="body-widget" [ngStyle]="{'padding': '10px 10px'}">
+              <h5 text-uppercase>WHAT IS PRUHUB</h5>
+              <p>Introduction on PRUhu for New Business team.</p>
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col size="6" col-6 [ngStyle]="{'font-size': '12px'}">
+                    SEE DETAIL
+                  </ion-col>
+                  <ion-col size="6" col-6 [ngStyle]="{'font-size': '12px'}">
+                    ADD REMINDER
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div
+          class="widget-content"
+          [hidden]="false"
+          [ngStyle]="{'padding': '25px 25px 30px 25px', 'border-bottom': 'solid 1px grey'}"
+        >
+          <h4
+            class="widget-title"
+            text-uppercase
+            [ngStyle]="{'margin-bottom': '25px'}"
+          >
+            Data & Reporting
+          </h4>
+          <div class="widget-item widget-tf-list">
+            <div class="head-widget">
+              <span class="icon-widget pdf-icon"></span>
+            </div>
+            <div class="body-widget">
+              <h5 text-uppercase>document.create_date</h5>
+              <p>Monthly Report: document.doc_title</p>
+              <p small>by document.creator</p>
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col col-6>
+                    <button ion-button text-uppercase color="red" clear>
+                      SEE DETAIL
+                    </button>
+                  </ion-col>
+                  <ion-col col-6>
+                    <button
+                      ion-button
+                      text-uppercase
+                      color="red"
+                      class="color-grey"
+                      clear
+                    >
+                      download
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+          <div text-center class="btn-widget-mobile">
+            <button ion-button color="red" clear no-margin>Close</button>
+          </div>
+        </div> -->
+        <div
+          class="widget-content"
+          [hidden]="false"
+          [ngStyle]="{'padding': '25px 25px 30px 25px', 'border-bottom': 'solid 1px grey'}"
+        >
+          <h4
+            class="widget-title"
+            text-uppercase
+            [ngStyle]="{'margin-bottom': '25px'}"
+          >
+            Corporate Updates
+          </h4>
+          <div class="widget-item full-widget">
+            <div
+              class="body-widget"
+              [ngStyle]="{'border-radius': '16px', 'background': '#ebebeb', 'padding': '10px 20px'}"
+            >
+              <h5 text-uppercase>03 AGUSTUS 2018</h5>
+              <p [ngStyle]="{'margin': '0px'}">
+                <b>News Update</b>
+              </p>
+              <p [ngStyle]="{'margin': '0px'}">
+                Let`s Welcome Our tribe Leader
+              </p>
+              <p [ngStyle]="{'margin': '0px'}">Adrian Putra Taaaslim</p>
+              <p small [ngStyle]="{'margin': '10px 0px', 'font-size': '10px'}">
+                by 330828-V0.0.48
+              </p>
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col
+                    col-12
+                    size="12"
+                    [ngStyle]="{'color': 'red', 'font-size': '12px'}"
+                  >
+                    READ MORE
+                  </ion-col>
+                  <ion-button (click)="getUsers()">GET USERS</ion-button>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
