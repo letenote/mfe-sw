@@ -9,7 +9,11 @@ import { setCacheNameDetails, clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import {
+  StaleWhileRevalidate,
+  NetworkFirst,
+  CacheFirst,
+} from "workbox-strategies";
 import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin";
 
 const DAY_IN_SECONDS = 24 * 60 * 60;
@@ -85,10 +89,237 @@ registerRoute(
 // :: This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
+  console.log("DEBUG:WB:MESSAGE", { event });
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
 
+function promptUserToRefresh() {
+  // don't use confirm in production; this is just an example
+  if (confirm("Refresh now?")) reg.waiting.skipWaiting();
+}
+// if (self) promptUserToRefresh();
+self.addEventListener("statechange", function (e) {
+  console.log("DEBUG:WB:statechange", { e });
+  if (e.target.state === "installed") {
+    promptUserToRefresh();
+  } else if (e.target.state === "activated") {
+    window.location.reload();
+  }
+});
+
 // :: handle route MFE or any other custom service worker logic can go here.
 // ...
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => {
+    console.log("DEBUG:WB:REMOTE:ENTRY", { url, self });
+    return (
+      [
+        "http://localhost:9999",
+        "http://localhost:4200",
+        "http://localhost:4300",
+      ].includes(url.origin) && url.pathname.includes("remoteEntry")
+    );
+  }, // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new NetworkFirst({
+    cacheName: "remote-entry-v1",
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new ExpirationPlugin({
+        maxEntries: 50, // Only cache 50 requests.
+        maxAgeSeconds: DAY_IN_SECONDS,
+        purgeOnQuotaError: true, // Automatically cleanup if quota is exceeded.
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      {
+        fetchDidFail: async ({
+          originalRequest,
+          request,
+          error,
+          event,
+          state,
+        }) => {
+          // No return expected.
+          // Note: `originalRequest` is the browser's request, `request` is the
+          // request after being passed through plugins with
+          // `requestWillFetch` callbacks, and `error` is the exception that caused
+          // the underlying `fetch()` to fail.
+          console.log("DEBUG:WB:CACHE:UPDATE:ERROR:FALLBBACK:1", {
+            originalRequest,
+            request,
+            error,
+            event,
+            state,
+          });
+          const getUrl = request.url.split("//");
+          const getUrlSplit = getUrl[getUrl.length - 1].split("/");
+          const getFallbackFile = getUrlSplit[getUrlSplit.length - 1];
+          const fallbackResponse = await caches.match(getFallbackFile, {
+            cacheName: "remote-entry-v1",
+          });
+          return fallbackResponse;
+        },
+      },
+    ],
+  })
+);
+
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => {
+    const pattern =
+      ["http://localhost:4200"].includes(url.origin) &&
+      !url.pathname.includes("remoteEntry");
+    pattern && console.log("DEBUG:WB:REMOTE:ANG:V1", { url, self });
+    return pattern;
+  }, // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new CacheFirst({
+    cacheName: "remote-mfe-ang-v1",
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new ExpirationPlugin({
+        maxEntries: 50, // Only cache 50 requests.
+        maxAgeSeconds: WEEK_IN_SECONDS,
+        purgeOnQuotaError: true, // Automatically cleanup if quota is exceeded.
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      {
+        cacheWillUpdate: async (param) => {
+          // Return `response`, a different `Response` object, or `null`.
+          const updated = (await self.cookieStore.get(
+            "remote-mfe-ang-v1-update"
+          )) || { value: false };
+          console.log("DEBUG:WB:CACHE:UPDATE:WILL", {
+            param,
+            self,
+            updated,
+          });
+          if (!updated.value) {
+            const broadcast = new BroadcastChannel("channel-onupdate");
+            broadcast.postMessage({
+              type: "remote-mfe-updated",
+              cacheName: "remote-mfe-ang-v1-update",
+              message: `Remote MFe app update is available!. Click OK to refresh`,
+            });
+          } else {
+            return param.response;
+          }
+        },
+        cacheDidUpdate: async ({
+          cacheName,
+          request,
+          oldResponse,
+          newResponse,
+          event,
+          state,
+        }) => {
+          // No return expected
+          // Note: `newResponse.bodyUsed` is `true` when this is called,
+          // meaning the body has already been read. If you need access to
+          // the body of the fresh response, use a technique like:
+          const freshResponse = await caches.match(request, { cacheName });
+          console.log("DEBUG:WB:CACHE:UPDATE:DID", {
+            cacheName,
+            request,
+            oldResponse,
+            newResponse,
+            event,
+            state,
+            freshResponse,
+          });
+          const broadcast = new BroadcastChannel("channel-update-complete");
+          broadcast.postMessage({
+            type: "remote-mfe-updated-complete",
+            cacheName: "remote-mfe-ang-v1-update",
+          });
+        },
+      },
+    ],
+  })
+);
+
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => {
+    ["http://localhost:4300"].includes(url.origin) &&
+      console.log("DEBUG:WB:REMOTE:ANG:V2", { url, self });
+    return (
+      ["http://localhost:4300"].includes(url.origin) &&
+      !url.pathname.includes("remoteEntry")
+    );
+  }, // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new CacheFirst({
+    cacheName: "remote-mfe-ang-v2",
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new ExpirationPlugin({
+        maxEntries: 50, // Only cache 50 requests.
+        maxAgeSeconds: WEEK_IN_SECONDS,
+        purgeOnQuotaError: true, // Automatically cleanup if quota is exceeded.
+      }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      {
+        cacheWillUpdate: async (param) => {
+          // Return `response`, a different `Response` object, or `null`.
+          const updated = (await self.cookieStore.get(
+            "remote-mfe-ang-v2-update"
+          )) || { value: false };
+          console.log("DEBUG:WB:CACHE:UPDATE:WILL", {
+            param,
+            self,
+            updated,
+          });
+          if (!updated.value) {
+            const broadcast = new BroadcastChannel("channel-onupdate");
+            broadcast.postMessage({
+              type: "remote-mfe-updated",
+              cacheName: "remote-mfe-ang-v2-update",
+              message: `Remote MFe app update is available!. Click OK to refresh`,
+            });
+          } else {
+            return param.response;
+          }
+        },
+        cacheDidUpdate: async ({
+          cacheName,
+          request,
+          oldResponse,
+          newResponse,
+          event,
+          state,
+        }) => {
+          // No return expected
+          // Note: `newResponse.bodyUsed` is `true` when this is called,
+          // meaning the body has already been read. If you need access to
+          // the body of the fresh response, use a technique like:
+          const freshResponse = await caches.match(request, { cacheName });
+          console.log("DEBUG:WB:CACHE:UPDATE:DID", {
+            cacheName,
+            request,
+            oldResponse,
+            newResponse,
+            event,
+            state,
+            freshResponse,
+          });
+          const broadcast = new BroadcastChannel("channel-update-complete");
+          broadcast.postMessage({
+            type: "remote-mfe-updated-complete",
+            cacheName: "remote-mfe-ang-v2-update",
+          });
+        },
+      },
+    ],
+  })
+);

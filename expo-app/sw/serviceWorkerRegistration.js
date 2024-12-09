@@ -67,7 +67,10 @@ function registerValidSW(swUrl, config) {
               // :: At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              // console.log("New content is available and will be used when all ", { config, registration, swUrl, navigator });
+              console.log(
+                "New content is available and will be used when all ",
+                { config, registration, swUrl, navigator }
+              );
 
               // :: Execute callback if you use notif by UI-framework
               // if (config && config.onUpdate) {
@@ -136,6 +139,30 @@ function checkValidServiceWorker(swUrl, config) {
       );
     });
 }
+
+let timeout;
+new BroadcastChannel("channel-onupdate").onmessage = async (event) => {
+  console.log("DEBUG:SWS-8", { event });
+  if (event.data && event.data.type === `remote-mfe-updated`) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      if (confirm(event.data.message)) {
+        document.cookie = `${event.data.cacheName}=true; SameSite=None; Secure`;
+        window.location.reload();
+      }
+    }, 1000);
+  }
+};
+new BroadcastChannel("channel-update-complete").onmessage = async (event) => {
+  console.log("DEBUG:SWS-8", { event });
+  if (event.data && event.data.type === `remote-mfe-updated-complete`) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      console.log("DEBUG:WB:CACHE:UPDATE:COMPLETE");
+      document.cookie = `${event.data.cacheName}=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; SameSite=None; Secure`;
+    }, 1000);
+  }
+};
 
 export function unregister() {
   if ("serviceWorker" in navigator) {

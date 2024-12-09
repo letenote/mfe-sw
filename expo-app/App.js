@@ -26,7 +26,7 @@ export default function App() {
       </Text>
       <StatusBar style="auto" />
       {/* <StandaloneModule /> */}
-      {/* <AppAngularModule /> */}
+      <AppAngularModule />
     </View>
   );
 }

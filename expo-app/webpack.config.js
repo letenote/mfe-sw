@@ -84,7 +84,9 @@ module.exports = async (env, argv) => {
       // the HTML & assets that are part of the webpack build.
       new WorkboxWebpackPlugin.InjectManifest({
         swSrc: path.resolve(__dirname, "sw/ngsw-worker.js"),
-        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        // dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        dontCacheBustURLsMatching: new RegExp(".+.[a-f0-9]{20}..+|index.html"),
+        // ignoreUrlParametersMatching: [/./],
         exclude: [
           /\.map$/,
           /asset-manifest\.json$/,
