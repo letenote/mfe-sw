@@ -76,7 +76,7 @@ const AppViteReactJSModule = () => {
   console.log("MOUNT:AppViteReactJSModule", {
     Button,
     App,
-    node: "version 23",
+    node: "version 23.2.0",
     react: "version 18.2.0",
     vite: "version 4.0.5",
   });

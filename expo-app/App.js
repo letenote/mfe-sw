@@ -8,8 +8,8 @@ import "./web/index.css";
 import { useEffect } from "react";
 import packageJson from "./package.json";
 import * as serviceWorkerRegistration from "./sw/serviceWorkerRegistration";
-import AppViteReactJSModule from "./modules/AppViteReactJSModule";
-
+// import AppViteReactJSModule from "./modules/AppViteReactJSModule";
+import AppViteReactTSModule from "./modules/AppViteReactTSModule";
 export default function App() {
   useEffect(() => {
     const setStorage = async () => {
@@ -28,7 +28,8 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <StandaloneModule /> */}
       {/* <AppAngularModule /> */}
-      <AppViteReactJSModule />
+      {/* <AppViteReactJSModule /> */}
+      <AppViteReactTSModule />
     </View>
   );
 }

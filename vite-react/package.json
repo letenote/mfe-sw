@@ -7,7 +7,8 @@
     "dev": "vite --port 5001 --strictPort",
     "build": "vite build",
     "preview": "vite preview --port 5001 --strictPort",
-    "serve": "vite preview --port 5001 --strictPort"
+    "serve": "vite preview --port 5001 --strictPort",
+    "deploy:local": "vite build && vite preview --port 5001 --strictPort"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.3.9",
