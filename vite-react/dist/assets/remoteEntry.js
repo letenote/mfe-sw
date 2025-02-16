@@ -4,11 +4,11 @@ const currentImports = {};
       const exportSet = new Set(['Module', '__esModule', 'default', '_export_sfc']);
       let moduleMap = {
 "./Button":()=>{
-      dynamicLoadingCss(["style-f13ce8cc.css"], false, './Button');
-      return __federation_import('./__federation_expose_Button-d4500f0d.js').then(module =>Object.keys(module).every(item => exportSet.has(item)) ? () => module.default : () => module)},
+      dynamicLoadingCss(["style-998defbc.css"], false, './Button');
+      return __federation_import('./__federation_expose_Button-1d1e67b1.js').then(module =>Object.keys(module).every(item => exportSet.has(item)) ? () => module.default : () => module)},
 "./App":()=>{
-      dynamicLoadingCss(["style-f13ce8cc.css"], false, './App');
-      return __federation_import('./__federation_expose_App-8d522341.js').then(module =>Object.keys(module).every(item => exportSet.has(item)) ? () => module.default : () => module)},};
+      dynamicLoadingCss(["style-998defbc.css"], false, './App');
+      return __federation_import('./__federation_expose_App-3f414c80.js').then(module =>Object.keys(module).every(item => exportSet.has(item)) ? () => module.default : () => module)},};
       const seen = {};
       const dynamicLoadingCss = (cssFilePaths, dontAppendStylesToHead, exposeItemName) => {
         const metaUrl = import.meta.url;

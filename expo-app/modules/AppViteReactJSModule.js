@@ -53,10 +53,10 @@
 
 // export default fetchImport;
 // ===================
-import { Button } from "viteRemote/Button";
-import { App } from "viteRemote/App";
+import { Button } from "viteJSRemote/Button";
+import { App } from "viteJSRemote/App";
 
-const AppViteReactModule = () => {
+const AppViteReactJSModule = () => {
   // const ref = useRef(null);
   // useEffect(() => {
   //   mount();
@@ -73,8 +73,14 @@ const AppViteReactModule = () => {
   //     </Suspense>
   //   </div>
   // );
-  console.log("lll", { Button, App });
-  return <Button />;
+  console.log("MOUNT:AppViteReactJSModule", {
+    Button,
+    App,
+    node: "version 23",
+    react: "version 18.2.0",
+    vite: "version 4.0.5",
+  });
+  return <App />;
 };
 
-export default AppViteReactModule;
+export default AppViteReactJSModule;

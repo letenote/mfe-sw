@@ -8,7 +8,7 @@ import "./web/index.css";
 import { useEffect } from "react";
 import packageJson from "./package.json";
 import * as serviceWorkerRegistration from "./sw/serviceWorkerRegistration";
-import AppViteReactModule from "./modules/AppViteReactModule";
+import AppViteReactJSModule from "./modules/AppViteReactJSModule";
 
 export default function App() {
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function App() {
       <StatusBar style="auto" />
       {/* <StandaloneModule /> */}
       {/* <AppAngularModule /> */}
-      <AppViteReactModule />
+      <AppViteReactJSModule />
     </View>
   );
 }

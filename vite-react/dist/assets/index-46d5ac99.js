@@ -1,7 +1,7 @@
 import { importShared } from './__federation_fn_import-2d46ca1b.js';
-import { j as jsx } from './__federation_expose_Button-d4500f0d.js';
+import { a as jsx } from './__federation_expose_Button-1d1e67b1.js';
 import { r as reactDomExports } from './index-ebe3b9e0.js';
-import App from './__federation_expose_App-8d522341.js';
+import { App } from './__federation_expose_App-3f414c80.js';
 
 var client = {};
 

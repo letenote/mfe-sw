@@ -47,7 +47,7 @@ module.exports = async (env, argv) => {
         //   "viteReactApp@http://localhost:5999/assets/remoteEntry.js",
         // viteReactApp:
         //   'promise import("http://localhost:5999/assets/remoteEntry.js")',
-        viteRemote: `promise import("http://localhost:5001/assets/remoteEntry.js")`,
+        viteJSRemote: `promise import("http://localhost:5001/assets/remoteEntry.js")`,
       },
       exposes: {
         "./Button": "./components/Button",
