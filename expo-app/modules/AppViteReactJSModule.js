@@ -73,7 +73,7 @@ const AppViteReactJSModule = () => {
   //     </Suspense>
   //   </div>
   // );
-  console.log("MOUNT:AppViteReactJSModule", {
+  console.log("MOUNT:CONTAINER::AppViteReactJSModule", {
     Button,
     App,
     node: "version 23.2.0",

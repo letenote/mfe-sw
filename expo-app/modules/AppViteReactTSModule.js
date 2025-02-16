@@ -1,7 +1,7 @@
 import { App } from "viteTSRemote/App";
 
 const AppViteReactTSModule = () => {
-  console.log("MOUNT:AppViteReactTSModule", {
+  console.log("MOUNT:CONTAINER:AppViteReactTSModule", {
     App,
     node: "version 23.2.0",
     react: "version 18.2.0",

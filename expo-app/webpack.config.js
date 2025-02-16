@@ -44,7 +44,7 @@ module.exports = async (env, argv) => {
         react_component: "react_component@http://localhost:3001/remoteEntry.js",
         ionicAngularApp: "ionicAngularApp@http://localhost:4200/remoteEntry.js",
         viteJSRemote: `promise import("http://localhost:5001/assets/remoteEntry.js")`,
-        viteTSRemote: `promise import("http://localhost:5002/assets/remoteEntry.js")`,
+        viteTSRemote: `promise import("http://localhost:5003/assets/remoteEntry.js")`,
       },
       exposes: {
         "./Button": "./components/Button",
