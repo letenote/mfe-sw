@@ -8,6 +8,7 @@ import "./web/index.css";
 import { useEffect } from "react";
 import packageJson from "./package.json";
 import * as serviceWorkerRegistration from "./sw/serviceWorkerRegistration";
+import AppViteReactModule from "./modules/AppViteReactModule";
 
 export default function App() {
   useEffect(() => {
@@ -26,7 +27,8 @@ export default function App() {
       </Text>
       <StatusBar style="auto" />
       {/* <StandaloneModule /> */}
-      <AppAngularModule />
+      {/* <AppAngularModule /> */}
+      <AppViteReactModule />
     </View>
   );
 }
@@ -34,10 +36,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "custom-font",
+    // fontFamily: "custom-font",
   },
 });
 

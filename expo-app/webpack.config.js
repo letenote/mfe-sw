@@ -25,8 +25,8 @@ module.exports = async (env, argv) => {
     argv
   );
 
-  config.optimization.minimize = isProduction;
-  config.devtool = !isProduction;
+  // config.optimization.minimize = isProduction;
+  // config.devtool = !isProduction;
   // :: bootstrap for share or expose mfe
   config.entry = path.resolve(__dirname, "./index.js");
   config.output = {
@@ -43,6 +43,11 @@ module.exports = async (env, argv) => {
       remotes: {
         react_component: "react_component@http://localhost:3001/remoteEntry.js",
         ionicAngularApp: "ionicAngularApp@http://localhost:4200/remoteEntry.js",
+        // viteReactApp:
+        //   "viteReactApp@http://localhost:5999/assets/remoteEntry.js",
+        // viteReactApp:
+        //   'promise import("http://localhost:5999/assets/remoteEntry.js")',
+        viteRemote: `promise import("http://localhost:5001/assets/remoteEntry.js")`,
       },
       exposes: {
         "./Button": "./components/Button",
@@ -84,8 +89,8 @@ module.exports = async (env, argv) => {
       // the HTML & assets that are part of the webpack build.
       new WorkboxWebpackPlugin.InjectManifest({
         swSrc: path.resolve(__dirname, "sw/ngsw-worker.js"),
-        // dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-        dontCacheBustURLsMatching: new RegExp(".+.[a-f0-9]{20}..+|index.html"),
+        dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        // dontCacheBustURLsMatching: new RegExp(".+.[a-f0-9]{20}..+|index.html"),
         // ignoreUrlParametersMatching: [/./],
         exclude: [
           /\.map$/,
@@ -98,7 +103,7 @@ module.exports = async (env, argv) => {
         // Bump up the default maximum size (2mb) that's precached,
         // to make lazy-loading failure scenarios less likely.
         // See https://github.com/cra-template/pwa/issues/13#issuecomment-722667270
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        maximumFileSizeToCacheInBytes: 250 * 1024 * 1024,
       })
     );
   }
